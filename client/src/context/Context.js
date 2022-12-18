@@ -1,37 +1,28 @@
-import { faker } from "@faker-js/faker";
 import React, { createContext, useContext, useReducer } from "react";
-import { cartReducer, productReducer } from "./Reducer";
+import { cartReducer, productReducer, fetchReducer } from "./Reducer";
 export const Cart = createContext();
 
-faker.seed(99);
-// create array of 20
-const Context = ({ children }) => {
-  const products = [...Array(20)].map(() => ({
-    id: faker.datatype.uuid(),
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    image: faker.image.image(),
-    inStock: faker.helpers.arrayElement([0, 3, 5, 6, 7]),
-    fastdelivery: faker.datatype.boolean(),
-    ratings: faker.helpers.arrayElement([1, 2, 3, 4, 5]),
-  }));
-  //console.log(productsArr);
 
+const Context = ({ children }) => {
+ 
   const [state, dispatch] = useReducer(cartReducer, {
-    products: products,
-    cart: [],
+    cart:localStorage.getItem('cartItems') ?
+    JSON.parse(localStorage.getItem('cartItems')): [], // initially empty
   }); // go to reducer.js to create cartReducer
 
   // create another reducer for the filter
   const [productState, productDispatch] = useReducer(productReducer, {
-    byStock: false , // so it doesn't display those that are out of stock
-    byFastdelivery:false, // display fast deliery only
+    byStock: false, // so it doesn't display those that are out of stock
     byRating: 0,
-    searchQuery:"",
-  })
+    searchQuery: "",
+  });
 
-  return <Cart.Provider value={{ state, dispatch , productState,productDispatch }}>{children}</Cart.Provider>; // children means whatever it's going to wrap around
-};
+  return (
+    <Cart.Provider value={{ state, dispatch, productState, productDispatch }}>
+      {children}
+    </Cart.Provider>
+  ); // children means whatever it's going to wrap around
+}; // This is to wrap all the react app. children will come from index.js
 
 export default Context;
 

@@ -1,25 +1,28 @@
+import { Link } from "react-router-dom";
 import { CartState } from "../context/Context";
 import Rating from "./Rating";
 
 const SingleProduct = ({ prod }) => {
   const {
-    state: { cart }, // can be state so we use state.cart 
+    state: { cart }, // can be state so we use state.cart
     dispatch,
   } = CartState();
 
   return (
-    <div className="card col-4 m-3" style={{ width: "18rem" }}>
-      <img src={prod.image} className="card-img-top" alt={prod.name} />
+    <div className="card col-3 m-3" style={{ width: "18rem" }}>
+      <Link to={`/product/${prod._id}`}>
+       
+        <img src={prod.image} className="card-img-top" alt={prod.name} />
+      </Link>
       <div className="card-body">
-        <h5 className="card-title">{prod.name}</h5>
-        <h5 className="card-text">{prod.price.split(".")[0]} NIS </h5>
-        {prod.fastdelivery ? (
-          <div>Fast Delivery</div>
-        ) : (
-          <div>4 Days Delivery</div>
-        )}
+        <Link to={`/product/${prod._id}`}>
+         
+          <h5 className="card-title">{prod.name}</h5>
+        </Link>
+        <h5 className="card-text">{prod.price} NIS </h5>
+
         <Rating rating={prod.ratings} />
-        {cart.some((p) => p.id === prod.id) ? (
+        {cart.some((p) => p._id === prod._id) ? (
           // some() helps us know if this particular thing exists in the array or not
           // if exists show "REMOVE FROM CART" button , otherwise sow"add to cart" button
           <button
@@ -48,26 +51,6 @@ const SingleProduct = ({ prod }) => {
           </button>
         )}
       </div>
-
-      {/* {cart.includes(prod) ? (
-        <button
-          className="btn btn-primary w-100 my-2"
-          onClick={() => {
-            setCart(cart.filter((c) => c.id !== prod.id));
-          }}
-        >
-          Remove from cart
-        </button>
-      ) : (
-        <button
-          className="btn btn-primary w-100"
-          onClick={() => {
-            setCart([...cart, prod]); // Add product to cart
-          }}
-        >
-          Add to Cart
-        </button>
-      )} */}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import Rating from "./Rating";
 const Filters = () => {
   //const [rate, setRate] = useState(1);
   const {
-    productState: { byStock, byFastDelivery, sort, byRating },
+    productState: { byStock, sort, byRating },
     productDispatch,
   } = CartState();
 
@@ -65,23 +65,7 @@ const Filters = () => {
           Include Out of Stock
         </label>
       </div>
-      <div className="form-check my-2 mx-3">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-          onChange={() =>
-            productDispatch({
-              type: "FILTER_BY_DELIVERY",
-            })
-          }
-          checked={byFastDelivery}
-        />
-        <label className="form-check-label" htmlFor="flexCheckChecked">
-          Fast Delivery Only
-        </label>
-      </div>
+     
       <span className="d-flex">
         <label className="pe-10 mx-3"> Rating : </label>
         <Rating

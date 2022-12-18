@@ -14,6 +14,7 @@ const Cart = () => {
     setTotal(
       cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
     );
+   
   }, [cart]); // means it's called each time cart var changes
 
   return (
@@ -21,7 +22,7 @@ const Cart = () => {
       <div className="col-md-8">
         <ul className="list-group ">
           {cart.map((prod) => (
-            <li className="row m-3 " key={prod.id} aria-current="true">
+            <li className="row m-3 " key={prod._id} aria-current="true">
               <div className="col-md-2 ">
                 <img className="w-100 rounded" src={prod.image} alt="" />
               </div>
@@ -32,13 +33,13 @@ const Cart = () => {
               </div>
               <div className="col-md-2">
                 <select
-                  class="form-select"
+                  className ="form-select"
                   value={prod.qty}
                   onChange={(e) =>
                     dispatch({
                       type: "CHANGE_CART_QTY",
                       payload: {
-                        id: prod.id,
+                        _id: prod._id,
                         qty: e.target.value,
                       }, // so here we're sending to the payload the id of the current product and the qty of
                       //the current product

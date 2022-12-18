@@ -63,7 +63,7 @@ const Header = () => {
                   {cart.length > 0 ? (
                     <>
                       {cart.map((prod) => (
-                        <span className="cartitem" key={prod.id}>
+                        <span className="cartitem" key={prod._id}>
                           <img
                             src={prod.image}
                             className="cartitemImg"
@@ -71,7 +71,7 @@ const Header = () => {
                           />
                           <div className="cartItemDetail">
                             <span>{prod.name}</span>
-                            <span>{prod.price.split(".")[0]} NIS</span>
+                            <span>{prod.price} NIS</span>
                           </div>
                           <i
                             className="fa-solid fa-trash text-danger"

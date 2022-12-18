@@ -13,7 +13,7 @@ const Rating = ({ rating, onClick, style }) => {
         </span>
         
       ))}
-      <h5>{rating}</h5>
+      
     </div>
   );
 };

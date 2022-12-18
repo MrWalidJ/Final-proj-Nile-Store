@@ -1,28 +1,49 @@
+import axios from "axios";
+import { useEffect, useReducer } from "react";
 import { CartState } from "../context/Context";
+import { fetchReducer } from "../context/Reducer";
 import Filters from "./Filters";
 
 import SingleProduct from "./SingleProduct";
+const api = process.env.REACT_APP_API || "";
 
 const Home = () => {
+  const [{ loading, error, products }, fetchDispatch] = useReducer(
+    fetchReducer,
+    {
+      loading: true,
+      error: "",
+      products: [],
+    }
+  );
+
+  useEffect(() => {
+    const getProducts = async () => {
+      fetchDispatch({ type: "FETCH_REQUEST" });
+      try {
+        const result = await axios.get(`${api}products`);
+        fetchDispatch({ type: "FETCH_SUCCESS", payload: result.data });
+      } catch (err) {
+        fetchDispatch({ type: "FETCH_FAIL", payload: err.message });
+      }
+    };
+   // JSON.parse(localStorage.getItem('cartItems'))
+    getProducts();
+  }, []);
   const {
-    state: { products },
-    productState: { sort, byStock, byFastDelivery, byRating, searchQuery }, // destructuring products from the
+    productState: { sort, byStock, byRating, searchQuery }, // destructuring products from the
   } = CartState();
- console.log("by stock:" , byStock);
+
   const transformProducts = () => {
     let sortedProducts = products;
+    console.log("sorted:", sortedProducts);
     if (sort) {
       sortedProducts = sortedProducts.sort((a, b) =>
         sort === "lowToHigh" ? a.price - b.price : b.price - a.price
       ); // we used the sort function
     }
-    if (!byStock ) {
+    if (!byStock) {
       sortedProducts = sortedProducts.filter((prod) => prod.inStock);
-   
-    }
-
-    if (byFastDelivery) {
-      sortedProducts = sortedProducts.filter((prod) => prod.fastdelivery);
     }
 
     if (byRating) {
@@ -39,12 +60,24 @@ const Home = () => {
     return sortedProducts;
   };
 
-  return (
-    <div className="d-flex my-3"> 
+  return loading ? (
+    <div class="d-flex justify-content-center mt-5">
+      <div className="spinner-border text-primary " role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  ) : error ? (
+    <div class="d-flex justify-content-center mt-5">
+      <div class="alert alert-danger" role="alert">
+        Network Error
+      </div>
+    </div>
+  ) : (
+    <div className="d-flex my-3">
       <Filters />
       <div className="row w-75 mt-3">
         {transformProducts().map((prod) => (
-          <SingleProduct prod={prod} key={prod.id} />
+          <SingleProduct prod={prod} key={prod._id} />
         ))}
       </div>
     </div>
