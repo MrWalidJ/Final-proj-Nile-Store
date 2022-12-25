@@ -1,14 +1,21 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { cartReducer, productReducer, fetchReducer } from "./Reducer";
+import { cartReducer, productReducer } from "./Reducer";
 export const Cart = createContext();
 
-
 const Context = ({ children }) => {
- 
   const [state, dispatch] = useReducer(cartReducer, {
-    cart:localStorage.getItem('cartItems') ?
-    JSON.parse(localStorage.getItem('cartItems')): [], // initially empty
-  }); // go to reducer.js to create cartReducer
+    userInfo: localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null,
+
+    cart: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [], // initially empty
+
+    shippingAddress: localStorage.getItem("shipping address")
+      ? JSON.parse(localStorage.getItem("shipping address"))
+      : {},
+  }); // Save cart
 
   // create another reducer for the filter
   const [productState, productDispatch] = useReducer(productReducer, {

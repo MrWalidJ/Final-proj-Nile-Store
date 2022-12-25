@@ -18,4 +18,19 @@ code {
 
 .img-large{
   max-width: 100%;
+  box-sizing: border-box;
+  object-fit: contain;
 }
+
+.carousel_img{
+  height: 30rem;
+  box-sizing: border-box;
+  object-fit: contain;
+
+}
+
+.form-width{
+  width: 32rem;
+}
+
+

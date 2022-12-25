@@ -8,6 +8,7 @@ import SingleProduct from "./SingleProduct";
 const api = process.env.REACT_APP_API || "";
 
 const Home = () => {
+  // const [filt, setFilt] = useState(true);
   const [{ loading, error, products }, fetchDispatch] = useReducer(
     fetchReducer,
     {
@@ -27,7 +28,7 @@ const Home = () => {
         fetchDispatch({ type: "FETCH_FAIL", payload: err.message });
       }
     };
-   // JSON.parse(localStorage.getItem('cartItems'))
+
     getProducts();
   }, []);
   const {
@@ -61,19 +62,21 @@ const Home = () => {
   };
 
   return loading ? (
-    <div class="d-flex justify-content-center mt-5">
+    <div className="d-flex justify-content-center mt-5">
       <div className="spinner-border text-primary " role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
     </div>
   ) : error ? (
-    <div class="d-flex justify-content-center mt-5">
-      <div class="alert alert-danger" role="alert">
+    <div className="d-flex justify-content-center mt-5">
+      <div className="alert alert-danger" role="alert">
         Network Error
       </div>
     </div>
   ) : (
     <div className="d-flex my-3">
+      {/* {filt ?
+      (<Filters />):(null)} */}
       <Filters />
       <div className="row w-75 mt-3">
         {transformProducts().map((prod) => (

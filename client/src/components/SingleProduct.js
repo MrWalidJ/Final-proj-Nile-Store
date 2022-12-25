@@ -4,7 +4,7 @@ import Rating from "./Rating";
 
 const SingleProduct = ({ prod }) => {
   const {
-    state: { cart }, // can be state so we use state.cart
+    state:{cart} ,// destrucuring just like to type const {cart} = state ;
     dispatch,
   } = CartState();
 

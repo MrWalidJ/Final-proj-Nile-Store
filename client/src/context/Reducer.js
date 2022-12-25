@@ -35,11 +35,11 @@ export const cartReducer = (state, action) => {
     case "CHANGE_CART_QTY": {
       const cartItems = state.cart.filter((c) =>
         c._id === action.payload._id ? (c.qty = action.payload.qty) : c.qty
-      );
+      ); // c.qty is the current value
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
       return {
         ...state,
-        cart: cartItems, // c.qty is the current value
+        cart: cartItems,
       };
     }
 
@@ -48,6 +48,27 @@ export const cartReducer = (state, action) => {
       return {
         ...state,
         cart: state.cart.filter((c) => c._id === ""),
+      };
+
+    case "USER_SIGNIN":
+      //console.log({ ...state, userInfo: action.payload });
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
+
+    case "USER_SIGNOUT":
+      return {
+        ...state,
+        userInfo: null,
+        cart: [],
+        shippingAddress: {}, // to reset both shipping and cart in signout
+      };
+
+    case "SAVE_SHIPPING_ADDRESS":
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
 
     default:

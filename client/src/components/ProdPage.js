@@ -49,7 +49,7 @@ const ProdPage = () => {
     getProduct();
   }, [id]);
   return loading ? (
-    <div class="d-flex justify-content-center mt-5">
+    <div className ="d-flex justify-content-center mt-5">
       <div className="spinner-border text-primary " role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
