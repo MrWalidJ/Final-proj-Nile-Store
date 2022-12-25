@@ -36,7 +36,7 @@ const Cart = () => {
               </div>
               <div className="col-md-2">
                 <select
-                  className="form-select"
+                  className="form-select" 
                   value={prod.qty}
                   onChange={(e) =>
                     dispatch({
