@@ -47,7 +47,7 @@ export const cartReducer = (state, action) => {
       localStorage.removeItem("cartItems");
       return {
         ...state,
-        cart: state.cart.filter((c) => c._id === ""),
+        cart: [],
       };
 
     case "USER_SIGNIN":

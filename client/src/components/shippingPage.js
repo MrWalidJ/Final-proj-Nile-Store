@@ -46,7 +46,7 @@ const ShippingPage = () => {
         country,
       })
     );
-    navigate("/payment");
+    navigate("/orderpreview");
   };
   return (
     <div>

@@ -21,6 +21,13 @@
   height: 50px;
   object-fit: cover;
 }
+.placeOrder_img {
+  border-radius: 20%;
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+}
+
 
 .cartItemDetail {
   display: flex;

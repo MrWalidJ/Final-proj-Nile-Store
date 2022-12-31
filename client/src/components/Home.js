@@ -37,7 +37,7 @@ const Home = () => {
 
   const transformProducts = () => {
     let sortedProducts = products;
-    console.log("sorted:", sortedProducts);
+    //console.log("sorted:", sortedProducts);
     if (sort) {
       sortedProducts = sortedProducts.sort((a, b) =>
         sort === "lowToHigh" ? a.price - b.price : b.price - a.price
@@ -74,11 +74,11 @@ const Home = () => {
       </div>
     </div>
   ) : (
-    <div className="d-flex my-3">
+    <div className="d-flex">
       {/* {filt ?
       (<Filters />):(null)} */}
       <Filters />
-      <div className="row w-75 mt-3">
+      <div className="row w-75 ">
         {transformProducts().map((prod) => (
           <SingleProduct prod={prod} key={prod._id} />
         ))}

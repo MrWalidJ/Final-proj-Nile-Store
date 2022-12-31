@@ -32,7 +32,10 @@ const productsSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
-});
+},{
+  timestamps: true,
+}
+);
 
 const Product = mongoose.model("products", productsSchema); // if we put "user" it will add a collection with name "users"
 module.exports = Product;

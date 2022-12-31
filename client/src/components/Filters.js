@@ -11,7 +11,7 @@ const Filters = () => {
 
  // console.log(byStock, byFastdelivery, sort, byRating);
   return (
-    <div className="w-25 bg-dark text-light ms-3 me-5">
+    <div className="w-25 bg-dark text-light ms-1 me-2 mt-3">
       <h3 className="m-3 text-center">Filter Products</h3>
       <div className="form-check my-2 mx-3">
         <input

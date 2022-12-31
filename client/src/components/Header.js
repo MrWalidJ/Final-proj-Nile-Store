@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark mx-1 ">
       <div className="container-fluid">
         <span className="navbar-brand ">Nile Store</span>
         <button
@@ -54,7 +54,7 @@ const Header = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="#">
+                    <Link className="dropdown-item" to="/orderhistory">
                       Order History
                     </Link>
                   </li>
