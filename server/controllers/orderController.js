@@ -8,7 +8,7 @@ const getMyOrders = async (req, res) => {
     res.status(200).send(myOrders) ;
     }
     catch(err){
-        res.status(400).send("Error in GET  user cards") ;
+        res.status(400).send(err) ;
     }
     
     };

@@ -26,12 +26,17 @@ const productsSchema = new mongoose.Schema({
   },
   inStock: {
     type: Number,
-    required: false,
+    required: true,
   },
   ratings: {
     type: Number,
     required: false,
   },
+  userId: {   
+    type: mongoose.Schema.Types.ObjectId,  
+    ref: "User",   
+    required: true
+  }
 },{
   timestamps: true,
 }

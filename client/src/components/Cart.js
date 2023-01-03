@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const navigate = useNavigate();
   const {
-    state: { cart },
+    state: { cart, userInfo },
     dispatch,
   } = CartState();
 
@@ -14,11 +14,17 @@ const Cart = () => {
 
   useEffect(() => {
     setTotal(
-      cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
+      cart.reduce((acc, curr) => acc + Number(curr.price * curr.qty), 0)
     );
   }, [cart]); // means it's called each time cart var changes
   const checkoutHandler = () => {
-    navigate("/signin");
+    if (userInfo) {
+      navigate("/shipping");
+    }
+    else{
+      alert("You have to sign in first")
+      navigate("/signin");
+    }
   };
   return (
     <div className="row my-3">
@@ -75,7 +81,7 @@ const Cart = () => {
         {cart.length > 0 ? (
           <div className="text-center">
             <button
-              className="btn btn-primary"
+              className="btn btn-primary p-2"
               onClick={() =>
                 dispatch({
                   type: "CLEAR_CART",
@@ -103,7 +109,7 @@ const Cart = () => {
         <h5 className="m-3"> Total: {total} ₪ </h5>
         <button
           type="button"
-          className="btn btn-primary w-75"
+          className="btn btn-primary w-75 p-2"
           disabled={cart.length === 0}
           onClick={checkoutHandler}
         >

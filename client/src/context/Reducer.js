@@ -58,6 +58,7 @@ export const cartReducer = (state, action) => {
       };
 
     case "USER_SIGNOUT":
+      localStorage.removeItem("cartItems");
       return {
         ...state,
         userInfo: null,

@@ -1,7 +1,10 @@
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartState } from "../context/Context";
 
 const Header = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
   const {
     state: { cart, userInfo },
     dispatch,
@@ -12,7 +15,15 @@ const Header = () => {
     dispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
     localStorage.removeItem("shipping address");
+    navigate("/");
   };
+  useEffect(() => {
+    if (userInfo) {
+      setIsAdmin(userInfo.isAdmin);
+    } else {
+      setIsAdmin(false);
+    }
+  }, [userInfo]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark mx-1 ">
@@ -58,6 +69,13 @@ const Header = () => {
                       Order History
                     </Link>
                   </li>
+                  {isAdmin && (
+                    <li>
+                      <Link className="dropdown-item" to="/my-products">
+                        My Products
+                      </Link>
+                    </li>
+                  )}
                   <li>
                     <hr className="dropdown-divider" />
                   </li>

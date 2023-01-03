@@ -10,7 +10,7 @@ const Context = ({ children }) => {
 
     cart: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
-      : [], // initially empty
+      : [], 
 
     shippingAddress: localStorage.getItem("shipping address")
       ? JSON.parse(localStorage.getItem("shipping address"))

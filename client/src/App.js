@@ -12,6 +12,9 @@ import ShippingPage from "./components/shippingPage";
 import PreviewOrder from "./components/PreviewOrder";
 import PlaceOrder from "./components/PlaceOrder";
 import OrderHistory from "./components/OrderHistory";
+import AddProduct from "./components/AddProduct";
+import EditProduct from "./components/EditProduct";
+import MyProducts from "./components/MyProducts";
 //import Carousel from "./components/Carousel";
 
 function App() {
@@ -33,6 +36,9 @@ function App() {
             <Route path="/orderpreview" element={<PreviewOrder />} />
             <Route path="/order/:id" element={<PlaceOrder />} />
             <Route path="/orderhistory" element={<OrderHistory />} />
+            <Route path="/add-product" element={<AddProduct />} />
+            <Route path="/edit-product/:id" element={<EditProduct />} />
+            <Route path="/my-products" element={<MyProducts />} />
           </Routes>
         </div>
       </main>

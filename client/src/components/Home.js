@@ -1,14 +1,21 @@
 import axios from "axios";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { CartState } from "../context/Context";
 import { fetchReducer } from "../context/Reducer";
 import Filters from "./Filters";
 
 import SingleProduct from "./SingleProduct";
-const api = process.env.REACT_APP_API || "";
+import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+function Home() {
+  const navigate = useNavigate();
+  const {
+    state: { userInfo },
+  } = CartState();
   // const [filt, setFilt] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const api = process.env.REACT_APP_API || "";
+
   const [{ loading, error, products }, fetchDispatch] = useReducer(
     fetchReducer,
     {
@@ -17,8 +24,16 @@ const Home = () => {
       products: [],
     }
   );
+  const {
+    productState: { sort, byStock, byRating, searchQuery }, // destructuring products from the
+  } = CartState();
 
   useEffect(() => {
+     if (userInfo) {
+      setIsAdmin(userInfo.isAdmin);
+    } else {
+      setIsAdmin(false);
+    }
     const getProducts = async () => {
       fetchDispatch({ type: "FETCH_REQUEST" });
       try {
@@ -30,10 +45,7 @@ const Home = () => {
     };
 
     getProducts();
-  }, []);
-  const {
-    productState: { sort, byStock, byRating, searchQuery }, // destructuring products from the
-  } = CartState();
+  }, [userInfo, api]);
 
   const transformProducts = () => {
     let sortedProducts = products;
@@ -74,17 +86,34 @@ const Home = () => {
       </div>
     </div>
   ) : (
-    <div className="d-flex">
-      {/* {filt ?
-      (<Filters />):(null)} */}
-      <Filters />
-      <div className="row w-75 ">
-        {transformProducts().map((prod) => (
-          <SingleProduct prod={prod} key={prod._id} />
-        ))}
+    <>
+      {isAdmin && (
+        <button
+          className="btn btn-success my-1 ms-3 "
+          onClick={() => {
+            navigate("/add-product");
+          }}
+        >
+          <b>
+            <i className="fa-solid fa-plus"></i> Add Product
+          </b>
+        </button>
+      )}
+
+      <div className="d-flex">
+        {/* {filt ?
+            (<Filters />):(null)} */}
+
+        <Filters />
+
+        <div className="row w-75 ">
+          {transformProducts().map((prod) => (
+            <SingleProduct prod={prod} key={prod._id} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
-};
+}
 
 export default Home;

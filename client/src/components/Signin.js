@@ -19,7 +19,7 @@ const Signin = () => {
       const { data } = await axios.post(`${api}signin`, { email, password });
       dispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate("/shipping");
+      navigate("/");
     } catch (err) {
       errorMsg("Invalid email or password");
     }
@@ -28,7 +28,7 @@ const Signin = () => {
 //while logged in
   useEffect(() => { 
     if (userInfo) {
-      navigate("/shipping");
+      navigate("/");
     }
   }, [navigate, userInfo]);
 
