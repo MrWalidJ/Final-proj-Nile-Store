@@ -76,7 +76,7 @@ const PlaceOrder = () => {
               <p className="card-text">
                 <b> Name: </b> {order.shippingAddress.fullName} <br />
                 <b> Address: </b> {order.shippingAddress.address},
-                {order.shippingAddress.city} ,{" "}
+                {order.shippingAddress.city} ,
                 {order.shippingAddress.postalcode},
                 {order.shippingAddress.country}
               </p>
@@ -135,7 +135,7 @@ const PlaceOrder = () => {
                   <div className="row">
                     <div className="col">Shipping: </div>
                     <div className="col">
-                      {order.shippingPrice.toFixed(2)} ₪{" "}
+                      {order.shippingPrice.toFixed(2)} ₪
                     </div>
                   </div>
                 </li>

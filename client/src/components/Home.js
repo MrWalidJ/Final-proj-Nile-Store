@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
 import { CartState } from "../context/Context";
+import jwt_decode from "jwt-decode";
 import { fetchReducer } from "../context/Reducer";
 import Filters from "./Filters";
 
@@ -13,6 +14,7 @@ function Home() {
     state: { userInfo },
   } = CartState();
   // const [filt, setFilt] = useState(true);
+  // isAdmin variable holds isAdmin value that is saved in the token
   const [isAdmin, setIsAdmin] = useState(false);
   const api = process.env.REACT_APP_API || "";
 
@@ -29,8 +31,9 @@ function Home() {
   } = CartState();
 
   useEffect(() => {
-     if (userInfo) {
-      setIsAdmin(userInfo.isAdmin);
+    if (userInfo) {
+      // decode isAdmin from token and save it in isAdmin variable
+      setIsAdmin(jwt_decode(userInfo.token).isAdmin);
     } else {
       setIsAdmin(false);
     }

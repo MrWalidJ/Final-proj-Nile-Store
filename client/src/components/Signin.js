@@ -18,15 +18,15 @@ const Signin = () => {
     try {
       const { data } = await axios.post(`${api}signin`, { email, password });
       dispatch({ type: "USER_SIGNIN", payload: data });
-      localStorage.setItem("userInfo", JSON.stringify(data));
+       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate("/");
     } catch (err) {
       errorMsg("Invalid email or password");
     }
   };
-// redirect to home page if the user navigates tp signin page 
-//while logged in
-  useEffect(() => { 
+  // redirect to home page if the user navigates tp signin page
+  //while logged in
+  useEffect(() => {
     if (userInfo) {
       navigate("/");
     }
@@ -64,6 +64,9 @@ const Signin = () => {
       </div>
       <p className="text-center mt-3">
         New user? <Link to="/register"> Create new account</Link>
+      </p>
+      <p className="text-center mt-5">
+        <Link to="/forgotPassword"> Forgot Password ?</Link>
       </p>
     </form>
   );

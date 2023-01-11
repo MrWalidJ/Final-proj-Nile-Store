@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartState } from "../context/Context";
+import jwt_decode from "jwt-decode";
 
 const Header = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [name, setName] = useState("");
+
   const navigate = useNavigate();
   const {
     state: { cart, userInfo },
@@ -19,9 +22,12 @@ const Header = () => {
   };
   useEffect(() => {
     if (userInfo) {
-      setIsAdmin(userInfo.isAdmin);
+  // decode isAdmin,name from token and save them in isAdmin, name variables
+      setIsAdmin(jwt_decode(userInfo.token).isAdmin);
+      setName(jwt_decode(userInfo.token).name);
     } else {
       setIsAdmin(false);
+      setName("");
     }
   }, [userInfo]);
 
@@ -56,7 +62,7 @@ const Header = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  {userInfo.name}
+                  {name}
                 </Link>
                 <ul className="dropdown-menu">
                   <li>

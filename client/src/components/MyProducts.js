@@ -26,7 +26,7 @@ const MyProducts = () => {
       navigate("/");
     }
     getMyProd();
-  }, []);
+  }, [navigate , userInfo ]);
   const deleteProd = async (id) =>
     await axios.delete(`${api}products/${id}`, {
       headers: { Authorization: `${userInfo.token}` },

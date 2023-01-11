@@ -25,10 +25,7 @@ router.post("/", async (req, res) => {
     if (!result) return res.status(400).send("Invalid email or password");
 
     res.status(200).send({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
+      // send the token to client having all user dataencrypted inside it
       token: generateToken(user),
     });
   } catch (error) {

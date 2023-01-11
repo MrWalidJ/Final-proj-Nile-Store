@@ -32,13 +32,9 @@ router.post("/", async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt); // encryption
 
     await user.save();
-    res.status(201).send({ 
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
+    res.status(201).send({
       token: generateToken(user),
-     });
+    });
   } catch (error) {
     res.status(400).send(error);
   }

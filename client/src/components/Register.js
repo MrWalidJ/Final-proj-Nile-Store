@@ -16,6 +16,7 @@ const Register = () => {
     state: { userInfo },
     dispatch,
   } = CartState();
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -95,7 +96,7 @@ const Register = () => {
       <div className="my-3 form-check">
         <input
           type="checkbox"
-          onChange={(e) => setIsAdmin(e.target.checked )}
+          onChange={(e) => setIsAdmin(e.target.checked)}
           className="form-check-input"
           id="exampleCheck1"
         />
