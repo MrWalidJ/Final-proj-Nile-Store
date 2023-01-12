@@ -18,7 +18,7 @@ const Signin = () => {
     try {
       const { data } = await axios.post(`${api}signin`, { email, password });
       dispatch({ type: "USER_SIGNIN", payload: data });
-       localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data));
       navigate("/");
     } catch (err) {
       errorMsg("Invalid email or password");

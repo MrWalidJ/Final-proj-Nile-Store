@@ -27,24 +27,21 @@ router.get("/:id/:token", async (req, res) => {
 
 router.post("/:id/:token", async (req, res) => {
   try {
-   
-    //1. joi validation for body
+    // joi validation for body
     const { error } = passwordSchema.validate(req.body);
     if (error) return res.status(400).send(error.message);
 
-    //2.  check if user exists
+    // get the token from params and get the payload from it
     const payload = jwt.verify(
       req.params.token,
       process.env.JWT_RESET_PASSWORD_KEY
     );
+    //check if user exists
     let user = await User.findOne({ _id: payload.id });
     if (!user) return res.status(400).send("invalid link !!");
 
-    // get the token from params and get the payload from it
-    
-    
-
-    const salt = await bcrypt.genSalt(10); // salt generation
+    // salt generation
+    const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(req.body.password, salt);
     await user.save();
 

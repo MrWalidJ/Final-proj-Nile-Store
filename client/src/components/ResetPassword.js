@@ -15,7 +15,7 @@ const ResetPassword = () => {
   const { id, token } = useParams();
   const url = `${api}reset-password/${id}/${token}`;
   // console.log(id);
-  // console.log(to);
+  // console.log(token);
 
   useEffect(() => {
     const verifyUrl = async () => {

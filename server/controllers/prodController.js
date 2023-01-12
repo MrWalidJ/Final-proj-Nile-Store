@@ -57,7 +57,7 @@ const addProd = async (req, res) => {
     //console.log(product);
     res.status(201).send(product); // send response to client
   } catch (error) {
-    res.status(400).send("Aha there is error");
+    res.status(400).send(" There is an error");
   }
 };
 

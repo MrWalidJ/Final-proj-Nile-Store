@@ -18,6 +18,7 @@ import MyProducts from "./components/MyProducts";
 import Contact from "./components/Contact";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
+import Profile from "./components/Profile";
 //import Carousel from "./components/Carousel";
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Route path="/my-products" element={<MyProducts />} />
             <Route path="/contact-us" element={<Contact />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/resetPassword/:id/:token" element={<ResetPassword/>} />
           </Routes>
         </div>

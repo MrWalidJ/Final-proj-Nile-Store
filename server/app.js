@@ -8,6 +8,8 @@ const signin = require("./routes/signin");
 // const profile = require("./routes/profile");
 const products = require("./routes/prod-routes");
 const orders = require("./routes/order-routes");
+const contacts = require("./routes/contact-us");
+const profile = require("./routes/profile");
 const cors = require("cors");
 const app = express();
 
@@ -26,7 +28,8 @@ app.use("/api/register", register);
 app.use("/api/signin", signin);
 app.use("/api/reset-password", resetPassword);
 app.use("/api/forgot-password", forgotPassword);
-// app.use("/api/profile", profile);
+app.use("/api/profile", profile);
 app.use("/api/products", products);
 app.use("/api/orders", orders);
+app.use("/api/contacts", contacts);
 app.listen(PORT, () => console.log("Server started on port " + PORT));
