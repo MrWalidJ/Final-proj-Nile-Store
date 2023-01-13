@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { errorMsg, successMsg } from "../Services/feedbackService";
 
-
 const Contact = () => {
   const api = process.env.REACT_APP_API;
   const [inputs, setInputs] = useState({
@@ -26,7 +25,7 @@ const Contact = () => {
       [e.target.name]: e.target.value,
     }));
   };
-console.log(inputs);
+  console.log(inputs);
   const submitHandler = async (e) => {
     e.preventDefault();
     addCont()
