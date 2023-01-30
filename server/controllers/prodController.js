@@ -7,7 +7,6 @@ const prodSchema = joi.object({
   description: joi.string().required().min(2),
   image: joi.string().required(),
   inStock: joi.number().required(),
-  ratings: joi.number(),
 });
 
 //get all products
@@ -88,4 +87,11 @@ const deleteProd = async (req, res) => {
   }
 };
 
-module.exports = { getAllProds, addProd, getProdById, getMyProds,updateProd, deleteProd };
+module.exports = {
+  getAllProds,
+  addProd,
+  getProdById,
+  getMyProds,
+  updateProd,
+  deleteProd,
+};

@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
-const productsSchema = new mongoose.Schema(
+const favSchema = new mongoose.Schema(
   {
+    prodId: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -16,17 +20,8 @@ const productsSchema = new mongoose.Schema(
       minlength: 2,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-      minlength: 4,
-    },
     image: {
       type: String,
-      required: true,
-    },
-    inStock: {
-      type: Number,
       required: true,
     },
     userId: {
@@ -40,5 +35,5 @@ const productsSchema = new mongoose.Schema(
   }
 );
 
-const Product = mongoose.model("products", productsSchema); // if we put "user" it will add a collection with name "users"
-module.exports = Product;
+const Fav = mongoose.model("favorites", favSchema);
+module.exports = Fav;

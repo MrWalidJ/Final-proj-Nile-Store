@@ -33,7 +33,6 @@ const EditProduct = () => {
         description: String(inputs.description),
         image: String(inputs.image),
         inStock: Number(inputs.inStock),
-        ratings: Number(inputs.ratings),
       },
       {
         headers: {
@@ -54,7 +53,7 @@ const EditProduct = () => {
     editProd()
       .then(() => {
         successMsg("Product updated successfully ");
-        navigate("/my-products");
+        navigate("/");
       })
       .catch(() => {
         errorMsg("OOPS ... Something went wrong !!");
@@ -92,18 +91,21 @@ const EditProduct = () => {
             />
             <label htmlFor="ap_price">Price</label>
           </div>
-          <div className="form-floating my-4">
-            <input
-              value={inputs.category}
-              id="ap_cat"
-              type="text"
-              placeholder="Category"
-              className="form-control"
-              onChange={handleChange}
+          <div className="my-4">
+            <select
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
               name="category"
-              required
-            />
-            <label htmlFor="ap_cat">Category</label>
+              onChange={handleChange}
+            >
+              <option selected disabled>
+                Category
+              </option>
+              <option value="Smartphones" on>
+                Smartphones
+              </option>
+              <option value="Laptops">Laptops</option>
+            </select>
           </div>
           <div className="form-floating my-4">
             <input

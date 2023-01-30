@@ -35,9 +35,9 @@ const PlaceOrder = () => {
             Authorization:`${userInfo.token}`,
         }
       });
-      console.log(data);
-      console.log("token is:",userInfo.token );
-      console.log("1st item id is:", data.order.orderItems[0]._id);
+      //console.log(data);
+      //console.log("token is:",userInfo.token );
+      //console.log("1st item id is:", data.order.orderItems[0]._id);
       dispatch({ type: "CLEAR_CART" });
       localStorage.removeItem("cart");
       navigate(`/order/${data.order._id}`);

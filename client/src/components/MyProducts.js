@@ -26,7 +26,7 @@ const MyProducts = () => {
       navigate("/");
     }
     getMyProd();
-  }, [navigate , userInfo ]);
+  }, [navigate, userInfo]);
   const deleteProd = async (id) =>
     await axios.delete(`${api}products/${id}`, {
       headers: { Authorization: `${userInfo.token}` },
@@ -45,7 +45,7 @@ const MyProducts = () => {
     <>
       <h3 className="display-5 text-center">My Products</h3>
 
-      <div className="row">
+      <div className="row ms-3">
         {products.length ? (
           products.map((product) => (
             <div
@@ -56,14 +56,12 @@ const MyProducts = () => {
               <img
                 src={product.image}
                 className="card-img-top"
-                alt="card img"
+                alt={product.name}
               />
               <div className="card-body">
-                <h3 className="text-dark">{product.name} </h3>
+                <h5 className="text-dark">{product.name} </h5>
                 <hr />
-                <h5 className="card-title">{product.price}</h5>
-                <hr />
-                <p className="card-text">{product.description}</p>
+                <h5 className="card-title">{product.price} ₪</h5>
                 <hr />
 
                 <Link

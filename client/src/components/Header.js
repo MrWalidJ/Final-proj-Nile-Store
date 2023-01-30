@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 
 const Header = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
   const [name, setName] = useState("");
 
   const navigate = useNavigate();
@@ -22,8 +23,9 @@ const Header = () => {
   };
   useEffect(() => {
     if (userInfo) {
-  // decode isAdmin,name from token and save them in isAdmin, name variables
+      // decode isAdmin,name from token and save them in isAdmin, name variables
       setIsAdmin(jwt_decode(userInfo.token).isAdmin);
+      setIsSeller(jwt_decode(userInfo.token).isSeller);
       setName(jwt_decode(userInfo.token).name);
     } else {
       setIsAdmin(false);
@@ -32,9 +34,13 @@ const Header = () => {
   }, [userInfo]);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark mx-1 ">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark m-1 ">
       <div className="container-fluid">
-        <span className="navbar-brand ">Nile Store</span>
+      <NavLink className="nav-link " aria-current="page" to="/">
+      <span className="navbar-brand text-light  "><i className="fa-solid fa-laptop-file"></i></span>
+        <span className="navbar-brand ">Nile Store</span> 
+              </NavLink>
+      
         <button
           className="navbar-toggler"
           type="button"
@@ -49,8 +55,8 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item me-auto">
-              <NavLink className="nav-link " aria-current="page" to="/">
-                Home
+              <NavLink className="nav-link " aria-current="page" to="/about">
+                About us
               </NavLink>
             </li>
 
@@ -75,10 +81,17 @@ const Header = () => {
                       Order History
                     </Link>
                   </li>
-                  {isAdmin && (
+                  {(isAdmin || isSeller) && (
                     <li>
                       <Link className="dropdown-item" to="/my-products">
                         My Products
+                      </Link>
+                    </li>
+                  )}
+                  {userInfo && (
+                    <li>
+                      <Link className="dropdown-item" to="/myfavsPage">
+                        My Favorites
                       </Link>
                     </li>
                   )}
@@ -103,12 +116,12 @@ const Header = () => {
             )}
             <li className="nav-item dropdown mx-5">
               <NavLink
-                className="nav-link dropdown-toggle bg-success "
+                className="nav-link dropdown-toggle bg-success  "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 <i className="fa-solid fa-cart-arrow-down"></i>
-                <span className="badge text-bg-danger ms-1">
+                <span className="badge  text-bg-danger ms-1">
                   <b>{cart.reduce((acc, curr) => acc + Number(curr.qty), 0)}</b>
                 </span>
               </NavLink>

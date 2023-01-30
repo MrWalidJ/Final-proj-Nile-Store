@@ -10,7 +10,7 @@ const Context = ({ children }) => {
 
     cart: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
-      : [], 
+      : [],
 
     shippingAddress: localStorage.getItem("shipping address")
       ? JSON.parse(localStorage.getItem("shipping address"))
@@ -20,8 +20,8 @@ const Context = ({ children }) => {
   // create another reducer for the filter
   const [productState, productDispatch] = useReducer(productReducer, {
     byStock: false, // so it doesn't display those that are out of stock
-    byRating: 0,
     searchQuery: "",
+    catQuery: "",
   });
 
   return (

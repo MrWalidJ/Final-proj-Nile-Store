@@ -7,7 +7,7 @@ const router = express.Router();
 
 const loginSchema = joi.object({
   email: joi.string().required().min(6).email(),
-  password: joi.string().required().min(5),
+  password: joi.string().required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d{4})(?=.*[!@#\$%\^&\*])(?=.{8,})/),
 });
 
 router.post("/", async (req, res) => {

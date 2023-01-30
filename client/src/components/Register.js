@@ -9,7 +9,9 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isAdmin, setIsAdmin] = useState("false");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
+  const [note, setNote] = useState(false);
   const navigate = useNavigate();
   const api = process.env.REACT_APP_API || " ";
   const {
@@ -29,13 +31,14 @@ const Register = () => {
         email,
         password,
         isAdmin,
+        isSeller,
       });
       dispatch({ type: "USER_SIGNIN", payload: data });
       successMsg("Successfully Registered");
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate("/");
     } catch (err) {
-      errorMsg("Something went wrong !");
+      errorMsg("Something went wrong, please check again your inputs !");
     }
   };
   // redirect to home page if the user navigates tp signin page
@@ -77,17 +80,31 @@ const Register = () => {
           className="form-control"
           id="floatingPassword_reg"
           onChange={(e) => setPassword(e.target.value)}
+          onFocus={() => {
+            setNote(true);
+          }}
           placeholder="Password"
           required
         />
         <label htmlFor="floatingPassword">Password</label>
       </div>
+      {note && (
+        <p className="text-danger">
+          Password must be at least 8 chars long, with at least one uppercase
+          letter, one lowercase letter , one special character , and at least 4
+          decimal digits.
+        </p>
+      )}
+
       <div className="form-floating my-4">
         <input
           type="password"
           className="form-control"
           id="floatingPasswordConf"
           onChange={(e) => setConfirmPassword(e.target.value)}
+          onFocus={(e) => {
+            setNote(false);
+          }}
           placeholder="Password"
           required
         />
@@ -96,11 +113,22 @@ const Register = () => {
       <div className="my-3 form-check">
         <input
           type="checkbox"
-          onChange={(e) => setIsAdmin(e.target.checked)}
+          onChange={(e) => setIsSeller(e.target.checked)}
           className="form-check-input"
           id="exampleCheck1"
         />
         <label className="form-check-label" htmlFor="exampleCheck1">
+          Register as seller
+        </label>
+      </div>
+      <div className="my-3 form-check">
+        <input
+          type="checkbox"
+          onChange={(e) => setIsAdmin(e.target.checked)}
+          className="form-check-input"
+          id="exampleCheck2"
+        />
+        <label className="form-check-label" htmlFor="exampleCheck2">
           Register as admin
         </label>
       </div>

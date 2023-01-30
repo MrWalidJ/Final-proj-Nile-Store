@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema(
   {
     orderItems: [
-      {
+      { // cart items added to database as order items
         name: { type: String, required: true },
         price: { type: String, required: true },
         qty: { type: Number, required: true },

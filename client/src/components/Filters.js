@@ -1,19 +1,35 @@
-
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import { CartState } from "../context/Context";
-import Rating from "./Rating";
 
 const Filters = () => {
- 
   const {
-    productState: { byStock, sort, byRating },
+    state: { userInfo },
+    productState: { byStock, sort },
     productDispatch,
   } = CartState();
+  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
 
- // console.log(byStock, byFastdelivery, sort, byRating);
+  useEffect(() => {
+    if (userInfo) {
+      // decode isAdmin from token and save it in isAdmin variable
+      setIsAdmin(jwt_decode(userInfo.token).isAdmin);
+      setIsSeller(jwt_decode(userInfo.token).isSeller);
+    } else {
+      setIsAdmin(false);
+    }
+  }, [userInfo]);
+
+  // console.log(byStock, byFastdelivery, sort, byRating);
   return (
-    <div className="w-25 bg-dark text-light ms-1 me-2 mt-3">
-      <h3 className="m-3 text-center">Filter Products</h3>
-      <div className="form-check my-2 mx-3">
+    <div className="w-100 bg-dark text-light mx-1 d-flex my-2  ">
+      <h5 className="mx-3 my-auto ">
+        <b>Filter Products : </b>
+      </h5>
+      <span className="form-check my-auto mx-3">
         <input
           className="form-check-input"
           type="radio"
@@ -28,10 +44,10 @@ const Filters = () => {
           checked={sort === "lowToHigh" ? true : false}
         />
         <label className="form-check-label" htmlFor="flexRadioDefault1">
-          Ascending
+          Ascending Price
         </label>
-      </div>
-      <div className="form-check my-2 mx-3">
+      </span>
+      <span className="form-check my-auto mx-3">
         <input
           className="form-check-input"
           type="radio"
@@ -46,10 +62,10 @@ const Filters = () => {
           checked={sort === "highToLow" ? true : false}
         />
         <label className="form-check-label" htmlFor="flexRadioDefault2">
-          Descending
+          Descending Price
         </label>
-      </div>
-      <div className="form-check ny-2 mx-3">
+      </span>
+      <span className="form-check my-auto mx-3">
         <input
           className="form-check-input"
           type="checkbox"
@@ -65,24 +81,30 @@ const Filters = () => {
         <label className="form-check-label" htmlFor="flexCheckDefault">
           Include Out of Stock
         </label>
-      </div>
-     
-      <span className="d-flex">
-        <label className="pe-10 mx-3"> Rating : </label>
-        <Rating
-          rating={byRating}
-          onClick={(i) =>
-            productDispatch({
-              type: "FILTER_BY_RATING",
-              payload: i + 1, // just like setRating[i+1]
-            })
-          }
-          style={{ cursor: "pointer" }}
-        />
       </span>
-      <div className="text-center my-3 mx-3">
+      <span className="form-check my-auto mx-3">
+        <select
+          className="form-select form-select-sm"
+          aria-label=".form-select-sm example"
+          name="category"
+          onChange={(e) => {
+            productDispatch({
+              type: "FILTER_BY_CATEGORY",
+              payload: e.target.value,
+            });
+          }}
+        >
+          <option selected disabled>
+            Choose Category
+          </option>
+          <option value="Smartphones">Smartphones</option>
+          <option value="Laptops">Laptops</option>
+        </select>
+      </span>
+
+      <span className=" my-3 mx-3">
         <button
-          className="btn btn-secondary w-50"
+          className="btn btn-secondary"
           onClick={() =>
             productDispatch({
               type: "CLEAR_FILTERS",
@@ -91,7 +113,19 @@ const Filters = () => {
         >
           Clear filters
         </button>
-      </div>
+        {(isAdmin || isSeller) && (
+          <button
+            className="btn btn-success my-1 ms-5 rounded-pill "
+            onClick={() => {
+              navigate("/add-product");
+            }}
+          >
+            <b>
+              <i className="fa-solid fa-plus"></i> Add Product
+            </b>
+          </button>
+        )}
+      </span>
     </div>
   );
 };

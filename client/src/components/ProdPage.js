@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import { CartState } from "../context/Context";
-import Rating from "./Rating";
+
 
 const api = process.env.REACT_APP_API || "";
 const prodfetchReducer = (state, action) => {
@@ -75,9 +75,7 @@ const ProdPage = () => {
           <li className="list-group-item">
             <h2>{product.name}</h2>
           </li>
-          <li className="list-group-item">
-            <Rating rating={product.ratings} />
-          </li>
+          
           <li className="list-group-item">
             <h5>Price : ₪ {product.price}</h5>
           </li>

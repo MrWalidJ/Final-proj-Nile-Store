@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      isSeller: user.isSeller,
     },
     process.env.jwtKey,
     {

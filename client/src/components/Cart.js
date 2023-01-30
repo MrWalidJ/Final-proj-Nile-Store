@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { CartState } from "../context/Context";
-import Rating from "./Rating";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
@@ -20,9 +19,8 @@ const Cart = () => {
   const checkoutHandler = () => {
     if (userInfo) {
       navigate("/shipping");
-    }
-    else{
-      alert("You have to sign in first")
+    } else {
+      alert("You have to sign in first");
       navigate("/signin");
     }
   };
@@ -33,16 +31,18 @@ const Cart = () => {
           {cart.map((prod) => (
             <li className="row m-3 " key={prod._id} aria-current="true">
               <div className="col-md-2 ">
-                <img className="w-100 rounded" src={prod.image} alt="" />
+                <img
+                  className="w-100 rounded"
+                  src={prod.image}
+                  alt={prod.name}
+                />
               </div>
               <div className="col-md-2">{prod.name}</div>
               <div className="col-md-2">{prod.price} ₪ </div>
-              <div className="col-md-2">
-                <Rating rating={prod.ratings} />
-              </div>
+
               <div className="col-md-2">
                 <select
-                  className="form-select" 
+                  className="form-select"
                   value={prod.qty}
                   onChange={(e) =>
                     dispatch({
@@ -102,7 +102,6 @@ const Cart = () => {
         style={{ height: "86vh" }}
       >
         <h4 className="m-3">
-         
           Subtotal ({cart.reduce((acc, curr) => acc + Number(curr.qty), 0)})
           items
         </h4>

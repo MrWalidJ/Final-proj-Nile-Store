@@ -1,21 +1,13 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { CartState } from "../context/Context";
-import jwt_decode from "jwt-decode";
 import { fetchReducer } from "../context/Reducer";
+import { errorMsg, successMsg } from "../Services/feedbackService";
 import Filters from "./Filters";
-
 import SingleProduct from "./SingleProduct";
-import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const navigate = useNavigate();
-  const {
-    state: { userInfo },
-  } = CartState();
-  // const [filt, setFilt] = useState(true);
   // isAdmin variable holds isAdmin value that is saved in the token
-  const [isAdmin, setIsAdmin] = useState(false);
   const api = process.env.REACT_APP_API || "";
 
   const [{ loading, error, products }, fetchDispatch] = useReducer(
@@ -27,32 +19,25 @@ function Home() {
     }
   );
   const {
-    productState: { sort, byStock, byRating, searchQuery }, // destructuring products from the
+    productState: { sort, byStock, searchQuery, catQuery },
+    state: { userInfo },
   } = CartState();
-
-  useEffect(() => {
-    if (userInfo) {
-      // decode isAdmin from token and save it in isAdmin variable
-      setIsAdmin(jwt_decode(userInfo.token).isAdmin);
-    } else {
-      setIsAdmin(false);
+  const getProducts = async () => {
+    fetchDispatch({ type: "FETCH_REQUEST" });
+    try {
+      const result = await axios.get(`${api}products`);
+      fetchDispatch({ type: "FETCH_SUCCESS", payload: result.data });
+    } catch (err) {
+      fetchDispatch({ type: "FETCH_FAIL", payload: err.message });
     }
-    const getProducts = async () => {
-      fetchDispatch({ type: "FETCH_REQUEST" });
-      try {
-        const result = await axios.get(`${api}products`);
-        fetchDispatch({ type: "FETCH_SUCCESS", payload: result.data });
-      } catch (err) {
-        fetchDispatch({ type: "FETCH_FAIL", payload: err.message });
-      }
-    };
-
+  };
+  useEffect(() => {
     getProducts();
-  }, [userInfo, api]);
+  }, [api]);
 
   const transformProducts = () => {
     let sortedProducts = products;
-    //console.log("sorted:", sortedProducts);
+
     if (sort) {
       sortedProducts = sortedProducts.sort((a, b) =>
         sort === "lowToHigh" ? a.price - b.price : b.price - a.price
@@ -62,20 +47,33 @@ function Home() {
       sortedProducts = sortedProducts.filter((prod) => prod.inStock);
     }
 
-    if (byRating) {
-      sortedProducts = sortedProducts.filter(
-        (prod) => prod.ratings >= byRating
-      );
-    }
-
     if (searchQuery) {
       sortedProducts = sortedProducts.filter((prod) =>
         prod.name.toLowerCase().includes(searchQuery)
       );
     }
+    if (catQuery) {
+      sortedProducts = sortedProducts.filter((prod) =>
+        prod.category.includes(catQuery)
+      );
+    }
     return sortedProducts;
   };
 
+  const deleteProd = async (id) =>
+    await axios.delete(`${api}products/${id}`, {
+      headers: { Authorization: `${userInfo.token}` },
+    });
+
+  const handleDelete = (product) => {
+    if (window.confirm(`Are you sure you want to delete ${product.name}?`))
+      deleteProd(product._id)
+        .then(() => {
+          getProducts();
+          successMsg("Card deleted successfully");
+        })
+        .catch((err) => errorMsg(err));
+  };
   return loading ? (
     <div className="d-flex justify-content-center mt-5">
       <div className="spinner-border text-primary " role="status">
@@ -89,33 +87,19 @@ function Home() {
       </div>
     </div>
   ) : (
-    <>
-      {isAdmin && (
-        <button
-          className="btn btn-success my-1 ms-3 "
-          onClick={() => {
-            navigate("/add-product");
-          }}
-        >
-          <b>
-            <i className="fa-solid fa-plus"></i> Add Product
-          </b>
-        </button>
-      )}
+    <div>
+      <Filters />
 
-      <div className="d-flex">
-        {/* {filt ?
-            (<Filters />):(null)} */}
-
-        <Filters />
-
-        <div className="row w-75 ">
-          {transformProducts().map((prod) => (
-            <SingleProduct prod={prod} key={prod._id} />
-          ))}
-        </div>
+      <div className="row w-100 mx-3 my-3">
+        {transformProducts().map((prod) => (
+          <SingleProduct
+            prod={prod}
+            handleDelete={handleDelete}
+            key={prod._id}
+          />
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 
