@@ -1,4 +1,5 @@
-Introduction
+Introduction: 
+
 Nile Store is an e-commerce website that was developed to buy and sell two product categories , laptops and smartphones. It has a variety of smartphones and laptops all displayed in the homepage from which the user can choose and add to his cart and complete the purchase or add items to his favorites list so that he can purchase later .
 (Note: This website can be expanded to include much more categories, but here I focused in these two categories). 
 
