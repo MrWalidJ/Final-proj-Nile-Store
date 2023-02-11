@@ -88,13 +88,7 @@ const Header = () => {
                       </Link>
                     </li>
                   )}
-                  {userInfo && (
-                    <li>
-                      <Link className="dropdown-item" to="/myfavsPage">
-                        My Favorites
-                      </Link>
-                    </li>
-                  )}
+                 
                   <li>
                     <hr className="dropdown-divider" />
                   </li>

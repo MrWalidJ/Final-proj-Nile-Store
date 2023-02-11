@@ -33,7 +33,7 @@ function Home() {
   };
   useEffect(() => {
     getProducts();
-  }, [api]);
+  }, []);
 
   const transformProducts = () => {
     let sortedProducts = products;

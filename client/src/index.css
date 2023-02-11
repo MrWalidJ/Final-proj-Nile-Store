@@ -15,6 +15,10 @@ code {
     monospace;
 }
 
+.fa-brands-deco{
+  color: black ;
+}
+
 .img-large {
   max-width: 100%;
   box-sizing: border-box;
@@ -38,7 +42,7 @@ code {
   height: 13.6rem;
 }
 
-.card:hover {
+.card_hm:hover {
   background-color: khaki;
 }
 

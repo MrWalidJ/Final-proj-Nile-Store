@@ -93,15 +93,16 @@ const EditProduct = () => {
           </div>
           <div className="my-4">
             <select
-              class="form-select form-select-sm"
+              className="form-select form-select-sm"
               aria-label=".form-select-sm example"
+              defaultValue={"DEFAULT"}
               name="category"
               onChange={handleChange}
             >
-              <option selected disabled>
+              <option value="DEFAULT" disabled>
                 Category
               </option>
-              <option value="Smartphones" on>
+              <option value="Smartphones" >
                 Smartphones
               </option>
               <option value="Laptops">Laptops</option>

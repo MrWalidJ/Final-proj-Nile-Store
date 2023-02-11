@@ -87,6 +87,7 @@ const Filters = () => {
           className="form-select form-select-sm"
           aria-label=".form-select-sm example"
           name="category"
+          defaultValue={"DEFAULT"}
           onChange={(e) => {
             productDispatch({
               type: "FILTER_BY_CATEGORY",
@@ -94,7 +95,7 @@ const Filters = () => {
             });
           }}
         >
-          <option selected disabled>
+          <option value="DEFAULT" disabled>
             Choose Category
           </option>
           <option value="Smartphones">Smartphones</option>

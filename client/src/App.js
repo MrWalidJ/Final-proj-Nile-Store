@@ -18,9 +18,7 @@ import Contact from "./components/Contact";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import Profile from "./components/Profile";
-import MyFavsPage from "./components/MyFavsPage";
 import About from "./components/About";
-
 
 //import Carousel from "./components/Carousel";
 
@@ -29,10 +27,9 @@ function App() {
     <Router>
       <ToastContainer />
       <Header />
-      
+
       <main>
         <div className="mt-1">
-          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProdPage />} />
@@ -53,7 +50,6 @@ function App() {
               path="/resetPassword/:id/:token"
               element={<ResetPassword />}
             />
-            <Route path="/myfavsPage" element={<MyFavsPage />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </div>
@@ -67,10 +63,28 @@ function App() {
           </b>
           <br />
           <h4>
-            <i className="fa-brands fa-linkedin me-1"></i>
-            <i className="fa-brands fa-github-square me-1"></i>
-            <i className="fa-brands fa-facebook-square me-1"></i>
-            <i className="fa-brands fa-instagram-square"></i>
+            <a
+              href="www.linkedin.com/in/walid-jamjoum"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fa-brands-deco"
+            >
+              <i className="fa-brands fa-linkedin me-1"></i>
+            </a>
+            <a
+              href="https://github.com/MrWalidJ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fa-brands-deco"
+            >
+              <i className="fa-brands fa-github-square me-1"></i>
+            </a>
+            <a href=" #" rel="noopener noreferrer" className="fa-brands-deco">
+              <i className="fa-brands fa-facebook-square me-1"></i>
+            </a>
+            <a href=" #" rel="noopener noreferrer" className="fa-brands-deco">
+              <i className="fa-brands fa-instagram-square"></i>
+            </a>
           </h4>
           <div>
             <Link to="/contact-us" className="me-3">

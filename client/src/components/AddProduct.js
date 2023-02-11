@@ -85,15 +85,16 @@ const AddProduct = () => {
       </div>
       <div className="my-4">
         <select
-          class="form-select form-select-sm"
+          className="form-select form-select-sm"
+          defaultValue={"DEFAULT"}
           aria-label=".form-select-sm example"
           name="category"
           onChange={handleChange}
         >
-          <option selected disabled>
+          <option value="DEFAULT" disabled>
             Category
           </option>
-          <option value="Smartphones" on>
+          <option value="Smartphones" >
             Smartphones
           </option>
           <option value="Laptops">Laptops</option>

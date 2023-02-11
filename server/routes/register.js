@@ -3,10 +3,9 @@ const joi = require("joi");
 const { generateToken } = require("../utils");
 const bcrypt = require("bcrypt");
 const User = require("../model/User");
-
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const Fav = require("../model/Fav");
+
 
 const registerSchema = joi.object({
   name: joi.string().required().min(2),
